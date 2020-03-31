@@ -48,8 +48,7 @@ function concertThis(_artist) {
     .finally(function() {});
 }
 
-//spotify-this-song (Artist(s), song's name,
-//A preview link of the song from Spotify, The album that the song is from)
+//Spotify Query, take song and export
 function spotifyThis(_song) {
   spotify
     .search({ type: "track", query: _song, limit: 1 })
@@ -64,8 +63,6 @@ function spotifyThis(_song) {
       console.log(err);
     });
 }
-
-spotifyThis("hard knock life");
 
 //OMDB query the movie title and print info
 function movieThis(_movie) {
