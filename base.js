@@ -144,17 +144,26 @@ function writeData(_data) {}
 
 /////Primary Function
 function queryInstruction(_instruction) {
+  console.log(_instruction);
   switch (_instruction.cmd) {
     case "spotify-this-song":
-      spotifyThis(instruction.search);
+      console.log("Finding Spotify information on " + _instruction.search);
+      console.log("-------------------");
+      spotifyThis(_instruction.search);
       break;
     case "concert-this":
-      concertThis(instruction.search);
+      console.log("Finding concert information for " + _instruction.search);
+      console.log("-------------------");
+      concertThis(_instruction.search);
       break;
     case "movie-this":
-      movieThis(instruction.search);
+      console.log("Finding Movie information on " + _instruction.search);
+      console.log("-------------------");
+      movieThis(_instruction.search);
       break;
     case "do-what-it-says":
+      console.log("Loading last run search");
+      console.log("-------------------");
       doWhatItSays();
       break;
   }
