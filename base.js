@@ -3,6 +3,9 @@
 //Load dotenv to read and write .env
 require("dotenv").config();
 
+//Load file system to read/write txt file
+var fs = require("fs");
+
 //Load keys script
 var keys = require("./keys.js");
 
@@ -102,7 +105,60 @@ function movieThis(_movie) {
     });
 }
 
-function doWhatItSays() {}
+//Take info from txt file and do one of the previous queries
+function doWhatItSays() {
+  //create intruct object
+  var instruction = {
+    cmd: "",
+    search: ""
+  };
+
+  //Load Text and write data temp variable
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    //Check error
+    if (error) {
+      return console.log(error);
+    }
+    //No error, read data.
+    else {
+      instruction.cmd = data.split(",")[0];
+      instruction.search = data.split(",")[1];
+
+      switch (instruction.cmd) {
+        case "spotify-this-song":
+          spotifyThis(instruction.search);
+          break;
+        case "concert-this":
+          concertThis(instruction.search);
+          break;
+        case "movie-this":
+          movieThis(instruction.search);
+          break;
+      }
+    }
+  });
+}
+
+//Write data to log
+function writeData(_data) {}
+
+/////Primary Function
+function queryInstruction(_instruction) {
+  switch (_instruction.cmd) {
+    case "spotify-this-song":
+      spotifyThis(instruction.search);
+      break;
+    case "concert-this":
+      concertThis(instruction.search);
+      break;
+    case "movie-this":
+      movieThis(instruction.search);
+      break;
+    case "do-what-it-says":
+      doWhatItSays();
+      break;
+  }
+}
 
 //Export to App
-module.exports = {};
+module.exports = queryInstruction;
