@@ -19,6 +19,7 @@ var axios = require("axios");
 
 //Load Moment for date format
 var moment = require("moment");
+const { connect } = require("http2");
 
 ////Functions
 
@@ -32,17 +33,23 @@ function concertThis(_artist) {
   axios
     .get(query)
     .then(function(response) {
-      // handle success
-
+      //create array to hold all concert objects
+      var concertInfo = [];
       //for loop that sends data (Name, Venue location, date) to array
       for (var i = 0; i < response.data.length; i++) {
         var info = response.data[i];
-
-        var venueName = info.venue.name;
-        var venueLocation = info.venue.city + ", " + info.venue.region;
-        var date = moment(info.datetime).format("MM/DD/YYYY");
-        console.log(venueName + " in " + venueLocation + " on " + date);
+        concertInfo.push(
+          "\n" +
+            info.venue.name +
+            " in " +
+            info.venue.city +
+            ", " +
+            info.venue.region +
+            " on " +
+            moment(info.datetime).format("MM/DD/YYYY")
+        );
       }
+      printData(concertInfo);
     })
     .catch(function(error) {
       // handle error
@@ -56,11 +63,38 @@ function spotifyThis(_song) {
   spotify
     .search({ type: "track", query: _song, limit: 1 })
     .then(function(response) {
-      //console.log(response.tracks.items[0].artists);
-      console.log("Artist(s): " + response.tracks.items[0].artists[0].name);
-      console.log("Track Name: " + _song);
-      console.log("Album: " + response.tracks.items[0].album.name);
-      console.log("Preview: " + response.tracks.items[0].external_urls.spotify);
+      //check if valid search
+      if (response.tracks.items.length > 0) {
+        spotifyData = [];
+
+        var artist =
+          response.tracks.items[0].artists[0].name != null
+            ? "Artist(s): " + response.tracks.items[0].artists[0].name
+            : "Not Available";
+        spotifyData.push(artist);
+        var track = "Track Name: " + _song;
+        spotifyData.push(track);
+        var album =
+          response.tracks.items[0].album.name != null
+            ? "Album: " + response.tracks.items[0].album.name
+            : "Not Available";
+
+        spotifyData.push(album);
+        var preview =
+          response.tracks.items[0].external_urls.spotify != null
+            ? "Preview: " + response.tracks.items[0].external_urls.spotify
+            : "Not Available";
+
+        spotifyData.push(preview);
+
+        printData(spotifyData);
+        // console.log("Artist(s): " + response.tracks.items[0].artists[0].name);
+        // console.log("Track Name: " + _song);
+        // console.log("Album: " + response.tracks.items[0].album.name);
+        // console.log("Preview: " + response.tracks.items[0].external_urls.spotify);
+      } else {
+        noResults();
+      }
     })
     .catch(function(err) {
       console.log(err);
@@ -140,7 +174,24 @@ function doWhatItSays() {
 }
 
 //Write data to log
-function writeData(_data) {}
+function printData(_data) {
+  var log = "";
+  //Print Data
+  _data.forEach(element => {
+    console.log(element);
+    log = log.concat("\n" + element);
+  });
+  //Log Data to Text
+  fs.appendFile("log.txt", log, function(err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+}
+
+function noResults() {
+  console.log("No results found");
+}
 
 /////Primary Function
 function queryInstruction(_instruction) {
