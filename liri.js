@@ -1,5 +1,5 @@
 var queryInstruction = require("./base");
-var inquirer = require("inquirer");
+//var inquirer = require("inquirer");
 
 //Secondary
 function getInstruction(_processArgv) {
@@ -14,5 +14,3 @@ function getInstruction(_processArgv) {
 
 //Run Liri bot
 queryInstruction(getInstruction(process.argv));
-
-
