@@ -25,35 +25,35 @@ User can give Liri a term to search after a giving command, results will be disp
 
    - `do-what-it-says`
 
-   Example 1: node liri movie-this the matrix
-   Example 2: node liri spotify-this-song hard knock life
-   Example 3: node liri concert-this janet jackson
-   example 4: node liri do-what-it-says
+   - Example 1: node liri movie-this the matrix
+   -Example 2: node liri spotify-this-song hard knock life
+   -Example 3: node liri concert-this janet jackson
+   -example 4: node liri do-what-it-says
 
 ### Core Logic
 
-USER: initiates liri.js with cmd and term arguments
-LIRI.js : converts and stores arguments to then pass to base.js module  
-Base.js : run switch for cmd then executes axios query search to appropriate database (omdb - movies, spotify - music track, band - artist ); if "do-what-it-says" is the command, read from random.txt and execute command and argument; query is done, print data to console and write to log.
+- USER: initiates liri.js with cmd and term arguments
+- LIRI.js : converts and stores arguments to then pass to base.js module  
+- Base.js : run switch for cmd then executes axios query search to appropriate database (omdb - movies, spotify - music track, band - artist ); if "do-what-it-says" is the command, read from random.txt and execute command and argument; query is done, print data to console and write to log.
 
 ### Organization
 
-/LIRI-NODE-APP
-_node_modules/
-_.env
-*base.js
-*keys.js
-*log.txt
-*random.txt
-*package.json
-*readme.md
+- /LIRI-NODE-APP
+- node_modules/
+- .env
+- base.js
+- keys.js
+- log.txt
+- random.txt
+- package.json
+- readme.md
 
 ##### Technologies Used
 
-Axios
-Spotify API
-Bands in Town
-MomentJS
-Node
-VS Code
-github
+-Axios
+-Spotify API
+-Bands in Town
+-MomentJS
+-Node
+-VS Code
+-github
