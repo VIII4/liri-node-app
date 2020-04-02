@@ -3,7 +3,7 @@
 ### Overview
 
 LIRI BOT will search Spotify for song info, Bands in Town for concerts, and OMDB for movies.
-User can give Liri a term to search after a giving command and term, results will be displayed on the console and saved to a previous searches log.
+User can give Liri a term to search after a giving command, results will be displayed on the console and saved to a previous searches log.
 
 ### Instructions
 
